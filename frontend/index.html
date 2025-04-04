@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LLM Streaming Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    #container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+      color: #333;
+    }
+
+    #inputArea {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1em;
+    }
+
+    #userQuery {
+      flex: 1;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #sendBtn {
+      padding: 10px 16px;
+      font-size: 1em;
+      margin-left: 10px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #sendBtn:hover {
+      background-color: #0056b3;
+    }
+
+    #responseBox {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      min-height: 250px;
+      overflow-y: auto;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    /* Style each type of line differently */
+    .thought {
+      color: #6c757d;  /* gray-ish */
+      font-style: italic;
+      margin: 0.4em 0;
+    }
+    .action {
+      color: #17a2b8;  /* teal-ish */
+      font-weight: 600;
+      margin: 0.4em 0;
+    }
+    .observation {
+      color: #28a745;  /* green-ish */
+      margin: 0.4em 0;
+    }
+    .final-answer {
+      color: #dc3545;  /* red-ish */
+      font-weight: bold;
+      margin: 1em 0;
+    }
+    .others {
+      margin: 0.4em 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>LLM Streaming Demo</h1>
+    <div id="inputArea">
+      <input id="userQuery" type="text" placeholder="Ask a question..." />
+      <button id="sendBtn">Send</button>
+    </div>
+    <div id="responseBox"></div>
+  </div>
+
+  <script>
+    const sendBtn = document.getElementById("sendBtn");
+    const userQueryInput = document.getElementById("userQuery");
+    const responseBox = document.getElementById("responseBox");
+
+    sendBtn.addEventListener("click", () => {
+      // Clear old response
+      responseBox.innerHTML = "";
+
+      // Grab user input
+      const query = userQueryInput.value.trim();
+      if (!query) {
+        responseBox.innerHTML = "<p>Please enter a query.</p>";
+        return;
+      }
+
+      // Create SSE connection
+      const eventSource = new EventSource(`/chat?query=${encodeURIComponent(query)}`);
+
+      // Each time we get a chunk of data, handle it line-by-line
+      eventSource.onmessage = (event) => {
+        // event.data might contain multiple lines if callback appended them.
+        const lines = event.data.split("\n");
+        lines.forEach((line) => {
+          const trimmed = line.trim();
+          if (!trimmed) return; // skip empty
+
+          // Simple detection of line type:
+          if (trimmed.startsWith("Thought:")) {
+            responseBox.innerHTML += `<div class="thought">${trimmed}</div>`;
+          } else if (trimmed.startsWith("Action:")) {
+            responseBox.innerHTML += `<div class="action">${trimmed}</div>`;
+          } else if (trimmed.startsWith("Observation:")) {
+            responseBox.innerHTML += `<div class="observation">${trimmed}</div>`;
+          } else if (trimmed.startsWith("Final Answer:")) {
+            responseBox.innerHTML += `<div class="final-answer">${trimmed}</div>`;
+          } else {
+            // fallback
+            responseBox.innerHTML += `<div class="others">${trimmed}</div>`;
+          }
+        });
+
+        // Auto-scroll to bottom so new lines are visible
+        responseBox.scrollTop = responseBox.scrollHeight;
+      };
+
+      // If there's an error or the server closes the connection
+      eventSource.onerror = (err) => {
+        console.error("EventSource failed:", err);
+        eventSource.close();
+      };
+    });
+  </script>
+</body>
+</html>
