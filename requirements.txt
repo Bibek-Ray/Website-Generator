@@ -4,4 +4,3 @@ python-dotenv
 langchain 
 langchain-google-genai
 uvicorn
-os
