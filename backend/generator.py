@@ -1,8 +1,9 @@
 # backend/generator.py
 
 import os
-
-from manager_agent import ManagerAgent
+from dotenv import load_dotenv
+from backend.manager_agent import ManagerAgent
+load_dotenv()
 
 def generate_frontend_site(user_prompt):
     """

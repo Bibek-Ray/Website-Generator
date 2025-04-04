@@ -5,11 +5,11 @@ import json
 from langchain.schema import SystemMessage, HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from layout_agent import LayoutAgent
-from styling_agent import StylingAgent
-from copywriting_agent import CopywritingAgent
-from code_assembler_agent import CodeAssemblerAgent
-from code_cleaner_agent import CodeCleanerAgent
+from backend.layout_agent import LayoutAgent
+from backend.styling_agent import StylingAgent
+from backend.copywriting_agent import CopywritingAgent
+from backend.code_assembler_agent import CodeAssemblerAgent
+from backend.code_cleaner_agent import CodeCleanerAgent
 
 class ManagerAgent:
     def __init__(self):
