@@ -1,9 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Website Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGen - Professional Website Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/styles.css">
 </head>
+<style>
+  /* Demo prompts styles */
+.demo-prompts {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.demo-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+.demo-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+.demo-btn {
+  background-color: var(--accent-light);
+  color: var(--primary);
+  border: 1px solid #D1E0FF;
+  border-radius: var(--border-radius-sm);
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.demo-btn:hover {
+  background-color: #D1E0FF;
+  transform: translateY(-1px);
+}
+
+.demo-btn:active {
+  transform: translateY(0);
+}
+
+</style>
 <body>
   <!-- Navbar -->
   <nav class="navbar">
@@ -14,10 +64,24 @@
 
   <div id="container">
     <h1>Website Generator</h1>
+    <p class="subtitle">Transform your ideas into custom websites with just a simple description</p>
+    
     <div id="inputArea">
-      <textarea id="userQuery" rows="6" placeholder="Describe your website..."></textarea>
+      <textarea id="userQuery" rows="6" placeholder="Describe your website (e.g., 'Create a modern portfolio website for a photographer with a dark theme')"></textarea>
+      
+      <div class="demo-prompts">
+        <p class="demo-title">Try these examples:</p>
+        <div class="demo-buttons">
+          <button class="demo-btn" data-prompt="Create a minimalist portfolio website for a graphic designer with light theme, featuring a gallery section and contact form.">Designer Portfolio</button>
+          <button class="demo-btn" data-prompt="Build a restaurant website with a warm color scheme, menu display, reservation form, and chef testimonials.">Restaurant Site</button>
+          <button class="demo-btn" data-prompt="Design a tech startup landing page with dark mode, product features section, pricing plans, and newsletter signup.">Startup Landing</button>
+          <button class="demo-btn" data-prompt="Create a fitness trainer website with class schedules, about section, testimonials, and a contact form.">Fitness Trainer</button>
+        </div>
+      </div>
+      
       <button id="sendBtn">Generate Website</button>
     </div>
+    
     <div id="resultArea"></div>
   </div>
 
@@ -30,18 +94,39 @@
     const sendBtn = document.getElementById("sendBtn");
     const userQuery = document.getElementById("userQuery");
     const resultArea = document.getElementById("resultArea");
+    const demoButtons = document.querySelectorAll(".demo-btn");
+    
+    // Add click event listeners to demo prompt buttons
+    demoButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        userQuery.value = button.getAttribute("data-prompt");
+        userQuery.focus();
+        // Smooth scroll to the textarea
+        userQuery.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
 
     sendBtn.addEventListener("click", async () => {
-      resultArea.innerHTML = `
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
-        <p class="generating-text">Generating your website...</p>
-      `;
+      resultArea.style.opacity = "0";
+      
+      setTimeout(() => {
+        resultArea.innerHTML = `
+          <div class="progress-container">
+            <div class="progress-bar"></div>
+          </div>
+          <p class="generating-text">Generating your professional website...</p>
+        `;
+        resultArea.style.opacity = "1";
+      }, 300);
       
       const query = userQuery.value.trim();
       if (!query) {
-        resultArea.innerHTML = "<p>Please enter your website requirements.</p>";
+        setTimeout(() => {
+          resultArea.innerHTML = `
+            <p class="error-text">Please enter your website requirements to continue.</p>
+          `;
+          resultArea.style.opacity = "1";
+        }, 300);
         return;
       }
       
@@ -58,21 +143,32 @@
         const htmlBlob = new Blob([data.html], { type: 'text/html' });
         const cssBlob = new Blob([data.css], { type: 'text/css' });
         
-        resultArea.innerHTML = `
-          <p class="success-text">Website generated successfully!</p>
-          <div class="download-buttons">
-            <a class="download-btn" href="${URL.createObjectURL(htmlBlob)}" download="index.html">
-              <span class="material-icons">download</span>
-              HTML File
-            </a>
-            <a class="download-btn" href="${URL.createObjectURL(cssBlob)}" download="styles.css">
-              <span class="material-icons">download</span>
-              CSS File
-            </a>
-          </div>
-        `;
+        setTimeout(() => {
+          resultArea.innerHTML = `
+            <p class="success-text">✓ Website generated successfully!</p>
+            <p class="info-text">Your custom website files are ready for download:</p>
+            <div class="download-buttons">
+              <a class="download-btn" href="${URL.createObjectURL(htmlBlob)}" download="index.html">
+                Download HTML File
+              </a>
+              <a class="download-btn" href="${URL.createObjectURL(cssBlob)}" download="styles.css">
+                Download CSS File
+              </a>
+            </div>
+          `;
+          resultArea.style.opacity = "1";
+          
+          // Scroll to result area
+          resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
       } catch (error) {
-        resultArea.innerHTML = `<p class="error-text">Error: ${error.message}</p>`;
+        setTimeout(() => {
+          resultArea.innerHTML = `
+            <p class="error-text">Error: ${error.message}</p>
+            <p>Please try again with different requirements or refresh the page.</p>
+          `;
+          resultArea.style.opacity = "1";
+        }, 300);
       }
     });
   </script>
