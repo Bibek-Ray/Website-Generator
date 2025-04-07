@@ -1,176 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebGen - Professional Website Generator</title>
+  <meta charset="UTF-8" />
+  <title>WebGen Redesign – Interactive Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts or any custom fonts you like -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./static/styles.css">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
+    rel="stylesheet"
+  />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="/static/styles.css" />
 </head>
-<style>
-  /* Demo prompts styles */
-.demo-prompts {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.demo-title {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-  text-align: left;
-}
-
-.demo-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: flex-start;
-}
-
-.demo-btn {
-  background-color: var(--accent-light);
-  color: var(--primary);
-  border: 1px solid #D1E0FF;
-  border-radius: var(--border-radius-sm);
-  padding: 0.6rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-speed);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.demo-btn:hover {
-  background-color: #D1E0FF;
-  transform: translateY(-1px);
-}
-
-.demo-btn:active {
-  transform: translateY(0);
-}
-
-</style>
 <body>
-  <!-- Navbar -->
+  <!-- Top Navbar -->
   <nav class="navbar">
-    <div class="nav-content">
-      <span class="logo">WebGen</span>
+    <div class="navbar-left">
+      <div class="logo">
+        <span class="logo-icon"></span>
+        <span class="logo-text">WebGen</span>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button id="homeBtn" class="nav-button">Home</button>
+      <button id="projectsBtn" class="nav-button">Projects</button>
+      <button id="exportBtn" class="nav-button">Export</button>
     </div>
   </nav>
 
-  <div id="container">
-    <h1>Website Generator</h1>
-    <p class="subtitle">Transform your ideas into custom websites with just a simple description</p>
-    
-    <div id="inputArea">
-      <textarea id="userQuery" rows="6" placeholder="Describe your website (e.g., 'Create a modern portfolio website for a photographer with a dark theme')"></textarea>
-      
-      <div class="demo-prompts">
-        <p class="demo-title">Try these examples:</p>
-        <div class="demo-buttons">
-          <button class="demo-btn" data-prompt="Create a minimalist portfolio website for a graphic designer with light theme, featuring a gallery section and contact form.">Designer Portfolio</button>
-          <button class="demo-btn" data-prompt="Build a restaurant website with a warm color scheme, menu display, reservation form, and chef testimonials.">Restaurant Site</button>
-          <button class="demo-btn" data-prompt="Design a tech startup landing page with dark mode, product features section, pricing plans, and newsletter signup.">Startup Landing</button>
-          <button class="demo-btn" data-prompt="Create a fitness trainer website with class schedules, about section, testimonials, and a contact form.">Fitness Trainer</button>
+  <div class="layout-container">
+    <!-- Left Panel: Chat & Steps -->
+    <aside class="sidebar-left" id="chatPanel">
+      <h2>Conversation</h2>
+      <div id="chatMessages" class="chat-messages">
+        <!-- Chat messages will be appended here -->
+      </div>
+      <div class="chat-input">
+        <textarea 
+          id="chatInput" 
+          placeholder="Describe your website or request changes..."
+          disabled
+        ></textarea>
+        <div class="tag-buttons">
+          <button id="createTag" class="tag-btn">/create</button>
+          <button id="reviseTag" class="tag-btn" disabled>/revise</button>
+        </div>
+        <button id="chatSendBtn" disabled>Send</button>
+      </div>
+              
+    </aside>
+
+    <!-- Center Panel: Preview -->
+    <main class="preview-panel" id="previewPanel">
+      <div class="preview-controls">
+        <h2>Live Preview</h2>
+        <div class="control-group">
+          <label for="versionSelect">Version:</label>
+          <select id="versionSelect">
+            <!-- Options for previous versions -->
+          </select>
+          <button 
+            id="refreshPreviewBtn" 
+            class="icon-btn" 
+            title="Refresh Preview"
+          >
+            ↻
+          </button>
+          <button 
+            id="deviceToggleBtn" 
+            class="icon-btn" 
+            title="Toggle Device View"
+          >
+            📱
+          </button>
         </div>
       </div>
-      
-      <button id="sendBtn">Generate Website</button>
-    </div>
-    
-    <div id="resultArea"></div>
+      <div class="preview-frame-wrapper">
+        <iframe id="sitePreview" title="Website Preview"></iframe>
+      </div>
+    </main>
+
+    <!-- Right Panel: Code & Revisions -->
+    <aside class="sidebar-right" id="codePanel">
+      <div class="panel-header">
+        <h2>Generated Code</h2>
+        <button id="toggleCodeBtn" class="icon-btn" title="Expand/Collapse">
+          ▼
+        </button>
+      </div>
+      <div class="tab-controls">
+        <button 
+          class="tab-btn active" 
+          data-tab="html"
+        >
+          HTML
+        </button>
+        <button 
+          class="tab-btn" 
+          data-tab="css"
+        >
+          CSS
+        </button>
+        <button 
+          class="tab-btn" 
+          data-tab="js"
+        >
+          JavaScript
+        </button>
+      </div>
+      <div class="code-container">
+        <pre id="htmlCode" class="code-block active"></pre>
+        <pre id="cssCode" class="code-block"></pre>
+        <pre id="jsCode" class="code-block"></pre>
+      </div>
+      <div class="revisions-section">
+        <h3>Revisions</h3>
+        <ul id="revisionList">
+          <!-- Revision history items -->
+        </ul>
+      </div>
+    </aside>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Developed with ❤️ by <a href="https://github.com/Bibek-Ray" target="_blank" class="github-link">Bibek</a></p>
+    <p>
+      Developed with ❤️ by 
+      <a 
+        href="https://github.com/Bibek-Ray" 
+        target="_blank" 
+        class="github-link"
+      >
+        Bibek
+      </a>
+    </p>
   </footer>
 
-  <script>
-    const sendBtn = document.getElementById("sendBtn");
-    const userQuery = document.getElementById("userQuery");
-    const resultArea = document.getElementById("resultArea");
-    const demoButtons = document.querySelectorAll(".demo-btn");
-    
-    // Add click event listeners to demo prompt buttons
-    demoButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        userQuery.value = button.getAttribute("data-prompt");
-        userQuery.focus();
-        // Smooth scroll to the textarea
-        userQuery.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    });
-
-    sendBtn.addEventListener("click", async () => {
-      resultArea.style.opacity = "0";
-      
-      setTimeout(() => {
-        resultArea.innerHTML = `
-          <div class="progress-container">
-            <div class="progress-bar"></div>
-          </div>
-          <p class="generating-text">Generating your professional website...</p>
-        `;
-        resultArea.style.opacity = "1";
-      }, 300);
-      
-      const query = userQuery.value.trim();
-      if (!query) {
-        setTimeout(() => {
-          resultArea.innerHTML = `
-            <p class="error-text">Please enter your website requirements to continue.</p>
-          `;
-          resultArea.style.opacity = "1";
-        }, 300);
-        return;
-      }
-      
-      try {
-        const response = await fetch("/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_prompt: query })
-        });
-        
-        if (!response.ok) throw new Error("Error generating website");
-        
-        const data = await response.json();
-        const htmlBlob = new Blob([data.html], { type: 'text/html' });
-        const cssBlob = new Blob([data.css], { type: 'text/css' });
-        
-        setTimeout(() => {
-          resultArea.innerHTML = `
-            <p class="success-text">✓ Website generated successfully!</p>
-            <p class="info-text">Your custom website files are ready for download:</p>
-            <div class="download-buttons">
-              <a class="download-btn" href="${URL.createObjectURL(htmlBlob)}" download="index.html">
-                Download HTML File
-              </a>
-              <a class="download-btn" href="${URL.createObjectURL(cssBlob)}" download="styles.css">
-                Download CSS File
-              </a>
-            </div>
-          `;
-          resultArea.style.opacity = "1";
-          
-          // Scroll to result area
-          resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
-      } catch (error) {
-        setTimeout(() => {
-          resultArea.innerHTML = `
-            <p class="error-text">Error: ${error.message}</p>
-            <p>Please try again with different requirements or refresh the page.</p>
-          `;
-          resultArea.style.opacity = "1";
-        }, 300);
-      }
-    });
-  </script>
+  <!-- Main Script -->
+  <script src="/static/app.js"></script>
 </body>
 </html>

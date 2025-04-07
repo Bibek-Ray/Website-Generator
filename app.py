@@ -1,13 +1,12 @@
-from fastapi import FastAPI
-from fastapi.responses import StreamingResponse, FileResponse
+# backend/app.py
+
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import Request, HTTPException
-from fastapi.responses import JSONResponse
-import uuid
-from backend.generator import generate_frontend_site, save_generated_site
-
 import os
+import uuid
+from backend.manager_agent import ManagerAgent
 
 app = FastAPI()
 
@@ -19,21 +18,39 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve static files (e.g., CSS, JS) from the "frontend" folder
+# Serve static files (CSS, JS, etc.) from the "frontend" folder
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
+# Serve the main index.html at the root
 @app.get("/")
 def serve_home():
-    """Serve the main index.html file at the root URL."""
     return FileResponse(os.path.join("frontend", "index.html"))
+
+# Global ManagerAgent instance to maintain conversation state
+manager_agent = ManagerAgent()
+
+def combine_html_css(html: str, css: str) -> str:
+    """
+    Combines HTML and CSS by injecting the CSS into the HTML head section.
+    If a </head> tag exists, insert before it.
+    Otherwise, append a <style> tag at the beginning.
+    """
+    lower_html = html.lower()
+    head_index = lower_html.find("</head>")
+    style_tag = f"<style>{css}</style>"
+    if head_index != -1:
+        return html[:head_index] + style_tag + html[head_index:]
+    else:
+        return style_tag + html
 
 @app.post("/generate")
 async def generate_site(request: Request):
     """
     Expects a JSON payload:
     {
-      "user_prompt": "your website requirements here"
+      "user_prompt": "Your website requirements here"
     }
+    Calls the ManagerAgent to generate the site in a single pass.
     """
     data = await request.json()
     user_prompt = data.get("user_prompt")
@@ -41,16 +58,44 @@ async def generate_site(request: Request):
         raise HTTPException(status_code=400, detail="user_prompt not provided")
     
     try:
-        html, css = generate_frontend_site(user_prompt)
-        # Generate a unique site id (first 8 characters of a uuid)
-        return JSONResponse(content={"html": html, "css": css})
+        html, css = manager_agent.generate_site(user_prompt)
+        inline_html = combine_html_css(html, css)
+        return JSONResponse(content={"html": html, "css": css, "inline_html": inline_html})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/conversation")
+async def conversation_endpoint(request: Request):
+    """
+    Expects a JSON payload:
+    {
+      "message": "User's message for conversation"
+    }
+    This endpoint simulates iterative conversation.
+      - If the message contains 'revise', it calls revise_site() to update the current site.
+      - Otherwise, it simply echoes a default reply.
+    """
+    data = await request.json()
+    message = data.get("message")
+    if not message:
+        raise HTTPException(status_code=400, detail="message not provided")
+    
+    # If user requests a revision (e.g., "revise the About section"),
+    # call the revision method.
+    if "revise" in message.lower():
+        revised_html, revised_css = manager_agent.revise_site(message)
+        inline_html = combine_html_css(revised_html, revised_css)
+        reply = "Revisions applied based on your feedback."
+        return JSONResponse(content={"reply": reply, "html": revised_html, "css": revised_css})
+    
+    # Otherwise, return a default reply.
+    reply = f"Received your message: {message}"
+    return JSONResponse(content={"reply": reply})
 
 @app.get("/site/{site_id}")
 async def get_site(site_id: str):
     """
-    Serves the generated HTML file.
+    Serves a previously generated HTML file based on the site_id.
     """
     file_path = os.path.join("generated_sites", f"site_{site_id}", "index.html")
     if not os.path.exists(file_path):
