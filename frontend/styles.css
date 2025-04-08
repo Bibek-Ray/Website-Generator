@@ -1,25 +1,28 @@
 :root {
-  /* Colors */
-  --primary: #2A5BD7;
-  --primary-hover: #1F4AB3;
-  --accent: #7C3AED;
-  --accent-light: #F3E8FF;
-  --background: #F9FAFB;
+  /* Core Colors */
+  --primary: #6366F1; /* Indigo */
+  --primary-hover: #4F46E5;
+  --accent: #F97316; /* Orange */
+  --accent-light: #FFF7ED;
+  --background: #F5F7FA;
   --surface: #FFFFFF;
-  --text-primary: #1F2937;
-  --text-secondary: #4B5563;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
   --border-color: #E5E7EB;
-  --success: #10B981;
+
+  /* Status */
+  --success: #22C55E;
   --error: #EF4444;
 
-  /* Sizing & Spacing */
-  --border-radius: 8px;
+  /* UI Elements */
+  --card-glow: rgba(99, 102, 241, 0.1);
+
+  /* Misc */
+  --border-radius: 12px;
   --transition-speed: 0.3s;
+  --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 
-  /* Shadows */
-  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-  /* Fonts */
+  /* Font */
   --font-body: 'Inter', sans-serif;
 }
 
@@ -79,9 +82,10 @@ body {
 .nav-button {
   background: transparent;
   border: none;
+  text-decoration: none;
   color: var(--text-secondary);
   font-size: 1rem;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   cursor: pointer;
   transition: color var(--transition-speed);
 }
@@ -412,13 +416,76 @@ body {
   font-size: 0.9rem;
 }
 
-.github-link {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  position: relative;
+.examples-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100vw;
+  height: 100%;
+  background: #ffffffb9;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  transition: right 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
-.github-link:hover {
-  color: var(--primary-hover);
+.examples-panel.active {
+  right: 0;
+}
+
+.examples-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.examples-content {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.example-card {
+  position: relative;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.452);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-card h4 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+
+.example-card iframe {
+  width: 80%;
+  height: 500px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.example-card iframe:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(99, 102, 241, 0.25);
 }

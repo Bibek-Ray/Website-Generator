@@ -27,8 +27,14 @@
     </div>
     <div class="navbar-right">
       <button id="homeBtn" class="nav-button">Home</button>
-      <button id="projectsBtn" class="nav-button">Projects</button>
-      <button id="exportBtn" class="nav-button">Export</button>
+      <button id="examplesBtn" class="nav-button">Examples</button>
+      <button id="projectsBtn" class="nav-button"><a 
+        href="https://github.com/Bibek-Ray" 
+        target="_blank" 
+        class="nav-button"
+      >
+      Follow Me
+      </a></button>
     </div>
   </nav>
 
@@ -145,16 +151,30 @@
   <!-- Footer -->
   <footer class="footer">
     <p>
-      Developed with ❤️ by 
-      <a 
-        href="https://github.com/Bibek-Ray" 
-        target="_blank" 
-        class="github-link"
-      >
-        Bibek
-      </a>
+      WebGen is Powered by Gemini
     </p>
   </footer>
+  <div id="examplesPanel" class="examples-panel">
+    <div class="examples-header">
+      <h2>Generated Website Examples</h2>
+      <button id="closeExamplesBtn" class="close-btn">✕</button>
+    </div>
+    <div class="examples-content">
+      <div class="example-card">
+        <h4>Comedy Ticket Page</h4>
+        <iframe src="/public/comedy-ticket/index.html"></iframe>
+      </div>
+      <div class="example-card">
+        <h4>Orange Blog Page</h4>
+        <iframe src="/public/orange-blog/index.html"></iframe>
+      </div>
+      <div class="example-card">
+        <h4>Cybersecurity Documentation Page</h4>
+        <iframe src="./public/cyber-documentation/index.html"></iframe>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- Main Script -->
   <script src="/static/app.js"></script>

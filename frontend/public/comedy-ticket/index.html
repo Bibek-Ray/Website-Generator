@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laugh Riot: The Comedy Extravaganza</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    background-color: #FFF7E5;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3 {
+    color: #E62E00;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+p {
+    line-height: 1.6;
+}
+
+a {
+    color: #FF6600;
+    text-decoration: none;
+}
+
+.cta-button {
+    background-color: #FF6600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #E62E00;
+}
+
+#hero-section {
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: right;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#date-section,
+#time-section,
+#and-call-to-action-section,
+#about-the-show-section,
+#show-details-section,
+#ticket-purchase-section,
+#venue-information-section,
+#testimonials-section,
+#contact-location-section,
+#faqs-section,
+#social-media-section {
+    padding: 50px;
+    text-align: center;
+}
+
+.events-container,
+.show-list,
+.testimonials-container,
+.faqs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.event,
+.show-item,
+.testimonial,
+.faq-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.show-item {
+    width: 250px;
+}
+
+.ticket-purchase-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.ticket-section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.payment-icons img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.venue {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+}
+
+.venue img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.contact-location-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.contact-info,
+.location-info {
+    width: 45%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.social-links a {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.social-media-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.social-platform {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: left;
+}
+
+.social-platform img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+</style>
+<body>
+    <section id="hero-section">
+        <div class="hero-content">
+            <h1>Laugh Riot: The Comedy Extravaganza</h1>
+            <h2>Get Ready to ROFL!</h2>
+            <p>Join us for a night of side-splitting comedy featuring the funniest comedians around. Prepare for an evening of unforgettable laughter!</p>
+            <a href="/tickets" class="cta-button">Get Your Tickets Now!</a>
+        </div>
+        <div class="hero-image">
+            <img src="/images/hero-image.jpg" alt="Comedians on stage laughing">
+        </div>
+    </section>
+    <section id="date-section">
+        <h2>Mark Your Calendar!</h2>
+        <p>Don't miss out! Check out our upcoming shows and grab your tickets before they're gone.</p>
+        <div class="events-container">
+            <div class="event">
+                <h3>October 26th, 2023</h3>
+                <p>8:00 PM at The Laugh Factory</p>
+                <p>Headliner: Sarah Silverman</p>
+                <a href="/tickets/sarah-silverman" class="cta-button">Get Tickets</a>
+            </div>
+            <div class="event">
+                <h3>November 10th, 2023</h3>
+                <p>7:30 PM at The Comedy Cellar</p>
+                <p>Headliner: Dave Attell</p>
+                <a href="/tickets/dave-attell" class="cta-button">Get Tickets</a>
+            </div>
+            <div class="event">
+                <h3>December 1st, 2023</h3>
+                <p>9:00 PM at Gotham Comedy Club</p>
+                <p>Headliner: Taylor Tomlinson</p>
+                <a href="/tickets/taylor-tomlinson" class="cta-button">Get Tickets</a>
+            </div>
+        </div>
+        <a href="/shows" class="cta-button">See More Shows!</a>
+    </section>
+    <section id="time-section">
+        <h2>Showtimes & Dates</h2>
+        <h3>Don't Miss the Laughs!</h3>
+        <p>Check out our upcoming shows. Pick your night and get ready to LOL!</p>
+        <div class="show-list">
+            <div class="show-item">
+                <p><strong>Friday, October 27th</strong></p>
+                <p>8:00 PM - The Comedy Cellar</p>
+                <p>Limited Tickets Available</p>
+                <a href="tickets.com/show1" class="cta-button">Get Tickets</a>
+            </div>
+            <div class="show-item">
+                <p><strong>Saturday, October 28th</strong></p>
+                <p>7:00 PM & 9:30 PM - The Comedy Cellar</p>
+                <p>Selling Fast!</p>
+                <a href="tickets.com/show2" class="cta-button">Get Tickets</a>
+            </div>
+            <div class="show-item">
+                <p><strong>Sunday, October 29th</strong></p>
+                <p>7:30 PM - The Comedy Cellar</p>
+                <p>Plenty of Seats</p>
+                <a href="tickets.com/show3" class="cta-button">Get Tickets</a>
+            </div>
+            <div class="show-item">
+                <p><strong>Friday, November 3rd</strong></p>
+                <p>8:00 PM - The Underground Theatre</p>
+                <p>Early Bird Discount!</p>
+                <a href="tickets.com/show4" class="cta-button">Get Tickets</a>
+            </div>
+        </div>
+    </section>
+    <section id="and-call-to-action-section">
+        <div class="hero-content">
+            <h2>Get Ready to Laugh!</h2>
+            <h3>The funniest shows in town. Tickets are selling fast!</h3>
+            <a href="/tickets" class="cta-button">Get Tickets Now</a>
+        </div>
+        <div class="hero-image">
+            <img src="/images/hero-image.jpg" alt="Hero Image">
+        </div>
+    </section>
+    <section id="about-the-show-section">
+        <div class="about-show">
+            <h2>About The Show</h2>
+            <h3>Get Ready to Laugh!</h3>
+            <p>Prepare for a night of side-splitting comedy featuring [Comedian Name]! This show promises an evening filled with fresh jokes, hilarious observations, and unforgettable moments.  Get your tickets now before they're gone!</p>
+            <img src="[Image of Show Poster or Comedian]" alt="About Show Image">
+            <a href="#tickets" class="cta-button">Get Tickets Now!</a>
+        </div>
+        <div class="about-comedian">
+            <h2>Meet The Comedian</h2>
+            <h3>[Comedian Name]</h3>
+            <p>[Comedian Name] is a rising star in the comedy scene, known for [mention a key comedic style, e.g., sharp wit, observational humor, high-energy performances]. They've been featured on [mention any TV appearances, awards, or significant performances]. Prepare to be amazed!</p>
+            <img src="[Image of the Comedian]" alt="Comedian Image">
+            <div class="social-links">
+                <a href="[Facebook Link]">Facebook</a>
+                <a href="[Instagram Link]">Instagram</a>
+                <a href="[Twitter Link]">Twitter</a>
+            </div>
+        </div>
+    </section>
+    <section id="show-details-section">
+        <h2>Get the Lowdown</h2>
+        <div class="show-details-container">
+            <div class="show-detail">
+                <h3>The Gist</h3>
+                <p>Prepare for a night of side-splitting laughter! [Show Name] features [Comedian 1] and [Comedian 2], guaranteed to leave you in stitches. Don't miss out on the funniest show in town!</p>
+            </div>
+            <div class="show-detail">
+                <h3>The Who</h3>
+                <p>Featuring: [Comedian 1], [Comedian 2], and [Special Guest/Host (optional)].</p>
+            </div>
+            <div class="show-detail">
+                <h3>The When & Where</h3>
+                <p>Date: [Date]<br>Time: [Time]<br>Venue: [Venue Name], [Address]<br><br>Doors Open: [Time - e.g., 7:00 PM]</p>
+            </div>
+            <div class="show-detail">
+                <h3>Age Restrictions</h3>
+                <p>[Age Restriction - e.g., 18+ (or as appropriate)]</p>
+            </div>
+            <div class="show-detail">
+                <h3>What to Expect</h3>
+                <p>Stand-up comedy at its finest! Expect witty observations, hilarious anecdotes, and a night you won't forget. Bring your friends, grab a drink, and get ready to laugh!</p>
+            </div>
+        </div>
+    </section>
+    <section id="ticket-purchase-section">
+        <h2>Grab Your Laugh Pass!</h2>
+        <h3>Don't miss out! Limited tickets available.</h3>
+        <div class="ticket-purchase-container">
+            <div class="ticket-section">
+                <h3>Choose Your Show</h3>
+                <p>Select the show you want to attend:</p>
+                <select>
+                    <option value="" disabled selected>Select a Show</option>
+                    <!-- Show options will be populated here -->
+                </select>
+                <button class="cta-button">View Show Details</button>
+            </div>
+            <div class="ticket-section">
+                <h3>Pick a Date & Time</h3>
+                <p>Choose from available showtimes:</p>
+                <select>
+                    <option value="" disabled selected>Select a Date & Time</option>
+                    <!-- Date/time options will be populated here -->
+                </select>
+                <button class="cta-button">Book Tickets</button>
+            </div>
+            <div class="ticket-section">
+                <h3>How Many Tickets?</h3>
+                <p>Enter the number of tickets you need:</p>
+                <label for="ticketQuantity">Tickets</label>
+                <input type="number" id="ticketQuantity" placeholder="1, 2, 3...">
+                <button class="cta-button">Add to Cart</button>
+            </div>
+            <div class="ticket-section">
+                <h3>Your Cart</h3>
+                <p>Review your order before checkout.</p>
+                <p>Your cart is currently empty. Select a show and tickets to begin.</p>
+                <button class="cta-button">Checkout</button>
+            </div>
+            <div class="ticket-section">
+                <h3>Secure Payment</h3>
+                <p>We accept all major credit cards and payment methods.</p>
+                <div class="payment-icons">
+                    <img src="visa.svg" alt="Visa">
+                    <img src="mastercard.svg" alt="Mastercard">
+                    <img src="amex.svg" alt="American Express">
+                    <img src="paypal.svg" alt="PayPal">
+                </div>
+            </div>
+            <div class="ticket-section">
+                <h3>Guaranteed Laughs!</h3>
+                <p>We're so confident you'll love the show, we offer a satisfaction guarantee. If you don't laugh, get your money back!</p>
+            </div>
+        </div>
+    </section>
+    <section id="venue-information-section">
+        <h2>Where the Laughs Happen</h2>
+        <h3>Get the inside scoop on our fantastic venues!</h3>
+        <div class="venues-container">
+            <div class="venue">
+                <img src="comedy_cellar.jpg" alt="The Comedy Cellar">
+                <h3>The Comedy Cellar</h3>
+                <p>123 Main St, Anytown, USA</p>
+                <p>Intimate setting, legendary comedians, and the perfect atmosphere for a night of side-splitting laughter. Get ready to be close to the action!</p>
+                <p><strong>Amenities:</strong></p>
+                <ul>
+                    <li>Full Bar</li>
+                    <li>Table Service</li>
+                    <li>Cozy Atmosphere</li>
+                </ul>
+            </div>
+            <div class="venue">
+                <img src="giggle_factory.jpg" alt="The Giggle Factory">
+                <h3>The Giggle Factory</h3>
+                <p>456 Oak Ave, Anytown, USA</p>
+                <p>A larger venue with a vibrant energy, showcasing both established and up-and-coming comedic talent. Prepare for a high-energy night!</p>
+                <p><strong>Amenities:</strong></p>
+                <ul>
+                    <li>Full Bar & Food Menu</li>
+                    <li>Spacious Seating</li>
+                    <li>Live Music Before Shows</li>
+                </ul>
+            </div>
+            <div class="venue">
+                <img src="laugh_lounge.jpg" alt="The Laugh Lounge">
+                <h3>The Laugh Lounge</h3>
+                <p>789 Pine Ln, Anytown, USA</p>
+                <p>Relaxed atmosphere perfect for unwinding and enjoying some of the best comedy around. Comfortable seating and great drinks!</p>
+                <p><strong>Amenities:</strong></p>
+                <ul>
+                    <li>Craft Cocktails</li>
+                    <li>Relaxed Vibes</li>
+                    <li>Outdoor Patio</li>
+                </ul>
+            </div>
+        </div>
+        <a href="#shows" class="cta-button">Choose Your Show!</a>
+    </section>
+    <section id="testimonials-section">
+        <h2>What People Are Saying</h2>
+        <div class="testimonials-container">
+            <div class="testimonial">
+                <p>"I laughed so hard, I cried! Best comedy show I've ever seen."</p>
+                <p><strong>Sarah M., New York, NY</strong></p>
+            </div>
+            <div class="testimonial">
+                <p>"The comedian was hilarious and the venue was perfect. Highly recommend!"</p>
+                <p><strong>John D., Los Angeles, CA</strong></p>
+            </div>
+            <div class="testimonial">
+                <p>"A fantastic night out! Great jokes, great atmosphere, and a truly unforgettable experience."</p>
+                <p><strong>Emily R., Chicago, IL</strong></p>
+            </div>
+            <div class="testimonial">
+                <p>"Worth every penny! I'll definitely be back for the next show."</p>
+                <p><strong>David L., Austin, TX</strong></p>
+            </div>
+        </div>
+    </section>
+    <section id="contact-location-section">
+        <h2>Get in Touch & Find the Funny</h2>
+        <p>Ready to laugh? Here's how to reach us and where the comedy magic happens!</p>
+        <div class="contact-location-container">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p><strong>Email:</strong> <a href="mailto:info@yourcomedyshow.com">info@yourcomedyshow.com</a></p>
+                <p><strong>Phone:</strong> 555-FUNNY-NOW</p>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="facebook.com/yourcomedyshow">Facebook</a>
+                    <a href="instagram.com/yourcomedyshow">Instagram</a>
+                </div>
+            </div>
+            <div class="location-info">
+                <h3>Where the Laughter Lives</h3>
+                <p><strong>The Comedy Bunker</strong></p>
+                <p>123 Funny Lane, Anytown, USA</p>
+                <a href="https://maps.google.com/maps?q=123+Funny+Lane,+Anytown,+USA">View on Google Maps</a>
+                <p>Doors open one hour before showtime. Plenty of parking available!</p>
+            </div>
+        </div>
+    </section>
+    <section id="faqs-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faqs-container">
+            <div class="faq-item">
+                <h3>How do I buy tickets?</h3>
+                <p>Click the 'Get Tickets' button on any show page. Follow the prompts to select your seats and complete your purchase.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I choose my seats?</h3>
+                <p>Yes! Our ticketing system allows you to select your preferred seats when available.  Check the seating chart during checkout.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What are your refund policies?</h3>
+                <p>All ticket sales are final. However, if a show is canceled, you will receive a full refund.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What time should I arrive?</h3>
+                <p>Doors typically open 30-60 minutes before showtime. Arriving early ensures you have time to find your seats and grab a drink!</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is there a drink minimum?</h3>
+                <p>No, there is no drink minimum. However, we have a fully stocked bar with a great selection of beverages.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What are the age restrictions?</h3>
+                <p>Age restrictions vary by show. Please check the show details for specific age requirements.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Where is the venue located?</h3>
+                <p>The venue address is listed on the show page and in your confirmation email. We also provide a map.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What if I have a large group?</h3>
+                <p>For group bookings, please contact us directly at [email protected] or call us at [phone number].</p>
+            </div>
+            <div class="faq-item">
+                <h3>What if I need to change my tickets?</h3>
+                <p>Unfortunately, we cannot exchange tickets. Please double-check your purchase before confirming.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I contact customer support?</h3>
+                <p>You can reach our customer support team by emailing [email protected] or by calling us at [phone number].</p>
+            </div>
+        </div>
+    </section>
+    <section id="social-media-section">
+        <h2>Get Social & Stay in the Know!</h2>
+        <h3>Follow us for hilarious updates, behind-the-scenes peeks, and exclusive ticket giveaways!</h3>
+        <div class="social-media-container">
+            <div class="social-platform">
+                <img src="facebook.svg" alt="Facebook Icon">
+                <h4>Facebook</h4>
+                <p>@YourComedyShowFacebook</p>
+                <p>Laugh along with fellow fans, see event reminders, and join the conversation!</p>
+            </div>
+            <div class="social-platform">
+                <img src="instagram.svg" alt="Instagram Icon">
+                <h4>Instagram</h4>
+                <p>@YourComedyShowInstagram</p>
+                <p>Get a sneak peek at the comedians, see hilarious clips, and enter contests!</p>
+            </div>
+            <div class="social-platform">
+                <img src="twitter.svg" alt="Twitter Icon">
+                <h4>Twitter</h4>
+                <p>@YourComedyShowTwitter</p>
+                <p>Tweet along with the show! Get breaking news and witty commentary.</p>
+            </div>
+            <div class="social-platform">
+                <img src="tiktok.svg" alt="TikTok Icon">
+                <h4>TikTok</h4>
+                <p>@YourComedyShowTikTok</p>
+                <p>Short, funny videos and behind-the-scenes action. Get ready to LOL!</p>
+            </div>
+        </div>
+        <p>Join the Fun! Follow Us Today!</p>
+    </section>
+</body>
+</html>

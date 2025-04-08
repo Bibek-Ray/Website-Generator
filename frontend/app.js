@@ -19,6 +19,19 @@ const codeBlocks = document.querySelectorAll(".code-block");
 const createTagBtn = document.getElementById("createTag");
 const reviseTagBtn = document.getElementById("reviseTag");
 
+const examplesBtn = document.getElementById('examplesBtn');
+const examplesPanel = document.getElementById('examplesPanel');
+const closeExamplesBtn = document.getElementById('closeExamplesBtn');
+
+examplesBtn.addEventListener('click', () => {
+  examplesPanel.classList.add('active');
+});
+
+closeExamplesBtn.addEventListener('click', () => {
+  examplesPanel.classList.remove('active');
+});
+
+
 function showLoading() {
     const loadingOverlay = document.getElementById("loadingOverlay");
     if (loadingOverlay) {

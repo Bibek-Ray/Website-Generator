@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberattack Incident Report</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.section-content {
+    margin-left: 20px;
+}
+
+.section-heading {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+ul, ol {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    font-weight: bold;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.item-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Button Style (from JSON) */
+.button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+</style>
+<body>
+    <section id="overview">
+        <h1>Overview</h1>
+        <div class="section-content">
+            <div class="section-heading">Purpose</div>
+            <p>This document provides a comprehensive analysis of a recent cyberattack targeting the [Platform Name] social media platform. It serves as an internal resource for understanding the attack's scope, methodologies, and impact, and is intended to inform strategic planning and enhance future security measures.</p>
+            <div class="section-heading">Scope</div>
+            <p>The scope of this documentation encompasses all relevant aspects of the cyberattack, including: initial intrusion vectors, attack timeline, compromised systems, data exfiltration, impact assessment, and post-incident response.</p>
+            <div class="section-heading">Intended Audience</div>
+            <p>This document is intended for internal stakeholders, including but not limited to: security teams, engineering teams, legal counsel, executive leadership, and incident response teams. Access is restricted and governed by established security protocols.</p>
+            <div class="section-heading">Document Structure</div>
+            <p>The document is organized into the following key sections: [List key sections, e.g., Incident Summary, Technical Analysis, Impact Assessment, Remediation, Lessons Learned].</p>
+            <div class="section-heading">Revision History</div>
+            <p>All revisions and updates to this document will be tracked and documented. See the Revision History section for details.</p>
+        </div>
+    </section>
+
+    <section id="background-context">
+        <h1>Background Context</h1>
+        <div class="section-content">
+            <div class="section-subtitle">Platform Overview</div>
+            <p>This document analyzes a cyberattack targeting the [Platform Name] social media platform. [Platform Name] is a [brief, technical description of the platform, e.g., microblogging service, content-sharing network] with [number] active users and [key features relevant to attack surface, e.g., significant API integrations, robust content moderation systems]. This section provides context for understanding the platform's architecture and vulnerabilities.</p>
+            <div class="section-subtitle">Attack Timeline</div>
+            <p>The attack unfolded between [start date/time] and [end date/time]. Key events include: [brief, bulleted list of initial indicators, e.g., anomalous traffic spikes, unusual API requests, compromised user accounts]. A detailed timeline is available in Appendix A.</p>
+            <div class="section-subtitle">Scope & Objectives</div>
+            <p>The primary objective of this analysis is to understand the attack's scope, methodology, and impact. We will examine: [list of areas covered, e.g., initial attack vector, data exfiltration, system compromise, impact on user accounts, financial impact]. The findings will inform strategic planning and improve our security posture.</p>
+            <div class="section-subtitle">Relevant Technologies & Systems</div>
+            <p>This document references the following technologies and systems: [list of relevant technologies, e.g., specific API endpoints, database systems, content delivery networks, security software]. Familiarity with these technologies is recommended for a complete understanding of the analysis.</p>
+        </div>
+    </section>
+
+    <section id="incident-summary">
+        <h1>Incident Summary</h1>
+        <div class="section-content">
+            <div class="section-heading">Executive Overview</div>
+            <p>This document details a cyberattack targeting [Platform Name] on [Date]. The incident resulted in [briefly describe the impact, e.g., data breach, service disruption, etc.]. This summary provides a concise overview for internal stakeholders, facilitating focused analysis and strategic mitigation planning.</p>
+            <div class="section-heading">Attack Vector</div>
+            <p>The primary attack vector exploited [Specific vulnerability or method, e.g., a zero-day vulnerability in the API, a phishing campaign targeting employees, etc.]. Details on the exploitation process are available in the Technical Analysis section.</p>
+            <div class="section-heading">Timeline</div>
+            <ul>
+                <li><b>[Date/Time]:</b> Incident Detection</li>
+                <li><b>[Date/Time]:</b> Initial Impact Observed</li>
+                <li><b>[Date/Time]:</b> Containment Measures Initiated</li>
+                <li><b>[Date/Time]:</b> Remediation Efforts Commence</li>
+                <li><b>[Date/Time]:</b> Service Restoration (if applicable)</li>
+                <li><b>[Date/Time]:</b> Post-Incident Analysis Begins</li>
+            </ul>
+            <div class="section-heading">Impact Assessment</div>
+            <ul>
+                <li><b>[Impact Category 1, e.g., Data Breach]:</b> [Specific details, e.g., User data compromised, including email addresses and usernames.]</li>
+                <li><b>[Impact Category 2, e.g., Service Disruption]:</b> [Specific details, e.g., Platform downtime for X hours, affecting Y users.]</li>
+                <li><b>[Impact Category 3, e.g., Financial Loss]:</b> [Specific details, e.g., Estimated cost of incident response and recovery.]</li>
+            </ul>
+            <div class="section-heading">Key Findings</div>
+            <ul>
+                <li>[Finding 1, e.g., The attackers exhibited advanced persistence techniques.]</li>
+                <li>[Finding 2, e.g., Existing security controls were insufficient to prevent the attack.]</li>
+                <li>[Finding 3, e.g., The incident highlights a vulnerability in [specific system or process].]</li>
+            </ul>
+            <div class="section-heading">Next Steps</div>
+            <ul>
+                <li><b>[Action Item 1, e.g., Conduct a comprehensive forensic investigation.]</b></li>
+                <li><b>[Action Item 2, e.g., Implement enhanced security measures based on the findings.]</b></li>
+                <li><b>[Action Item 3, e.g., Review and update incident response plan.]</b></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="technical-details">
+        <h1>Technical Details</h1>
+        <div class="section-content">
+            <div class="section-title">Attack Vector</div>
+            <p>The primary attack vector exploited a vulnerability in the platform's API authentication process.</p>
+            <ul>
+                <li>Specifically, a crafted request bypassed rate limiting.</li>
+                <li>This allowed for the injection of malicious code targeting user accounts.</li>
+                <li>The vulnerability was identified in version X.Y.Z and patched in version A.B.C.</li>
+            </ul>
+            <div class="section-title">Payload Analysis</div>
+            <p>The malicious payload consisted of several components designed to achieve specific objectives.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Function</th>
+                        <th>MD5 Hash</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dropper.exe</td>
+                        <td>Establishes persistence, downloads additional payloads</td>
+                        <td>0a1b2c3d4e5f6...</td>
+                    </tr>
+                    <tr>
+                        <td>Keylogger.dll</td>
+                        <td>Records user keystrokes, steals credentials</td>
+                        <td>1f2e3d4c5b6a7...</td>
+                    </tr>
+                    <tr>
+                        <td>C2Client.py</td>
+                        <td>Communicates with command and control server</td>
+                        <td>9g8h7f6e5d4c3...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="section-title">Timeline</div>
+            <ul>
+                <li>T-0: Initial exploit attempt detected.</li>
+                <li>T+15m: Unauthorized access confirmed.</li>
+                <li>T+30m: Payload deployment initiated.</li>
+                <li>T+60m: Malicious activity escalated.</li>
+                <li>T+2h: Incident response procedures activated.</li>
+                <li>T+6h: Vulnerability patched and mitigation deployed.</li>
+            </ul>
+            <div class="section-title">Infrastructure</div>
+            <p>The attackers utilized the following infrastructure:</p>
+            <ul>
+                <li>Command and Control (C2) Server: IP Address - 192.0.2.10, Domain - maliciousdomain.com</li>
+                <li>Malware Distribution Point: IP Address - 192.0.2.20, Domain - anothermalicious.net</li>
+                <li>Data Exfiltration Channels: Primarily HTTPS and DNS tunneling.</li>
+            </ul>
+            <div class="section-title">Affected Systems</div>
+            <ul>
+                <li>User Accounts: X number of accounts compromised.</li>
+                <li>Servers: Y number of servers impacted by malware.</li>
+                <li>Databases: Potential data exfiltration of Z records.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="timeline-of-events">
+        <h1>Timeline of Events</h1>
+        <p>A chronological breakdown of the cyberattack, detailing key actions and their corresponding timestamps.</p>
+        <ul>
+            <li><b>T00:00:00 UTC</b>: Initial compromise: Unauthorized access to a privileged account detected.</li>
+            <li><b>T00:30:00 UTC</b>: Malicious code injection: Scripts deployed to key platform components.</li>
+            <li><b>T01:15:00 UTC</b>: Data exfiltration begins: Sensitive user data and internal documents targeted.</li>
+            <li><b>T02:00:00 UTC</b>: Anomaly detection triggered: Automated systems flag unusual activity.</li>
+            <li><b>T02:30:00 UTC</b>: Incident response initiated: Initial containment measures deployed.</li>
+            <li><b>T03:00:00 UTC</b>: Service disruption: Key platform features experience performance degradation.</li>
+            <li><b>T04:00:00 UTC</b>: Attack vector identified: Exploitation of a vulnerability in [Specific Component].</li>
+            <li><b>T05:00:00 UTC</b>: Containment achieved: Unauthorized access blocked; systems isolated.</li>
+            <li><b>T08:00:00 UTC</b>: Forensic analysis begins: Detailed investigation of affected systems and data.</li>
+            <li><b>T12:00:00 UTC</b>: Notification process started: Internal stakeholders and regulatory bodies informed.</li>
+            <li><b>T24:00:00 UTC</b>: First public statement released: Initial details of the incident shared.</li>
+            <li><b>T48:00:00 UTC</b>: Remediation efforts: Patches deployed, systems restored.</li>
+        </ul>
+    </section>
+
+    <section id="impact-analysis">
+        <h1>Impact Analysis</h1>
+        <div class="section-content">
+            <div class="section-title">User Impact</div>
+            <ul>
+                <li>
+                    <div class="item-title">Account Compromise</div>
+                    <p>Quantifiable data on compromised accounts, including types (personal, business, verified), and geographic distribution. Analyze the nature of compromised data (e.g., passwords, PII, financial information).</p>
+                </li>
+                <li>
+                    <div class="item-title">Service Disruption</div>
+                    <p>Duration and scope of service outages. Impact on core functionalities (e.g., posting, messaging, content access). Analyze user reports of functionality issues.</p>
+                </li>
+                <li>
+                    <div class="item-title">Data Breaches</div>
+                    <p>Detailed breakdown of data breaches: types of data exposed, number of users affected, potential legal and regulatory ramifications (e.g., GDPR, CCPA). Include data exfiltration analysis.</p>
+                </li>
+                <li>
+                    <div class="item-title">Reputational Damage</div>
+                    <p>Assessment of negative media coverage, user sentiment analysis (e.g., social media trends, public statements), and impact on brand perception.</p>
+                </li>
+            </ul>
+            <div class="section-title">Operational Impact</div>
+            <ul>
+                <li>
+                    <div class="item-title">Infrastructure Damage</div>
+                    <p>Assessment of damage to servers, databases, and network infrastructure. Identify affected services and systems. Estimate costs of repair and recovery.</p>
+                </li>
+                <li>
+                    <div class="item-title">Incident Response Costs</div>
+                    <p>Breakdown of costs associated with incident response, including: investigation, remediation, legal counsel, public relations, and recovery efforts.</p>
+                </li>
+                <li>
+                    <div class="item-title">Legal and Regulatory Ramifications</div>
+                    <p>Analysis of potential legal actions, regulatory investigations, and fines. Include compliance risks and required notifications.</p>
+                </li>
+                <li>
+                    <div class="item-title">Business Continuity Impact</div>
+                    <p>Assessment of the impact on business operations, revenue, and future business plans. Analyze the effectiveness of business continuity plans.</p>
+                </li>
+            </ul>
+            <div class="section-title">Financial Impact</div>
+            <ul>
+                <li>
+                    <div class="item-title">Revenue Loss</div>
+                    <p>Quantify revenue lost due to service disruptions, user churn, and advertising revenue decline.</p>
+                </li>
+                <li>
+                    <div class="item-title">Recovery Costs</div>
+                    <p>Detailed breakdown of recovery costs, including infrastructure rebuilding, security enhancements, and legal fees.</p>
+                </li>
+                <li>
+                    <div class="item-title">Long-Term Financial Effects</div>
+                    <p>Projected long-term financial impact on user acquisition, retention, and market capitalization.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="response-measures">
+        <h1>Response Measures</h1>
+        <div class="section-content">
+            <div class="section-subtitle">Containment</div>
+            <ul>
+                <li>
+                    <div class="item-title">Account Lockdown</div>
+                    <p>Immediate suspension of compromised accounts to prevent further unauthorized activity. Details include account IDs, timestamps, and rationale for suspension.</p>
+                </li>
+                <li>
+                    <div class="item-title">Network Segmentation</div>
+                    <p>Isolation of affected network segments to limit lateral movement of the attacker. Documentation includes network diagrams pre- and post-segmentation.</p>
+                </li>
+                <li>
+                    <div class="item-title">Traffic Filtering</div>
+                    <p>Implementation of firewall rules and intrusion detection system (IDS) signatures to block malicious traffic. Configuration details and performance metrics included.</p>
+                </li>
+            </ul>
+            <div class="section-subtitle">Eradication</div>
+            <ul>
+                <li>
+                    <div class="item-title">Malware Removal</div>
+                    <p>Detailed steps taken to identify and remove malware from infected systems. Includes hash values of detected malware and remediation scripts.</p>
+                </li>
+                <li>
+                    <div class="item-title">System Hardening</div>
+                    <p>Measures to secure vulnerable systems, including patching, configuration changes, and access control modifications. Audit logs and before/after configurations provided.</p>
+                </li>
+                <li>
+                    <div class="item-title">Password Reset</div>
+                    <p>Forced password resets for all potentially compromised user accounts. Log of users affected and confirmation of password reset completion.</p>
+                </li>
+            </ul>
+            <div class="section-subtitle">Recovery</div>
+            <ul>
+                <li>
+                    <div class="item-title">Data Restoration</div>
+                    <p>Procedures for restoring data from backups, including timelines, data integrity checks, and verification of successful recovery.</p>
+                </li>
+                <li>
+                    <div class="item-title">System Rebuild</div>
+                    <p>Process of rebuilding compromised systems, including OS installations, software configurations, and security hardening. Documentation includes build scripts and images.</p>
+                </li>
+                <li>
+                    <div class="item-title">User Communication</div>
+                    <p>Communication plan for informing users of the incident, including timelines, communication methods, and example messaging.</p>
+                </li>
+            </ul>
+            <div class="section-subtitle">Post-Incident Activities</div>
+            <ul>
+                <li>
+                    <div class="item-title">Forensic Analysis</div>
+                    <p>Detailed analysis of the attack, including timeline, indicators of compromise (IOCs), and attacker tactics, techniques, and procedures (TTPs). Data sources and methodologies included.</p>
+                </li>
+                <li>
+                    <div class="item-title">Lessons Learned</div>
+                    <p>Summary of key takeaways and recommendations for improving security posture and incident response capabilities. Includes specific action items and responsible parties.</p>
+                </li>
+                <li>
+                    <div class="item-title">Reporting & Compliance</div>
+                    <p>Documentation of all regulatory reporting and legal compliance activities related to the incident. Includes reports filed and communications with relevant authorities.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="lessons-learned">
+        <h1>Lessons Learned</h1>
+        <div class="section-content">
+            <div class="section-heading">Vulnerability Identification</div>
+            <ul>
+                <li>Detailed analysis of exploited vulnerabilities.</li>
+                <li>Root cause analysis of each vulnerability.</li>
+                <li>Assessment of patching efficacy and timelines.</li>
+                <li>Recommendations for improved vulnerability scanning and management.</li>
+            </ul>
+            <div class="section-heading">Incident Response Effectiveness</div>
+            <ul>
+                <li>Evaluation of incident response plan execution.</li>
+                <li>Assessment of communication protocols and timeliness.</li>
+                <li>Identification of bottlenecks in response procedures.</li>
+                <li>Recommendations for enhancing incident response training and simulations.</li>
+            </ul>
+            <div class="section-heading">Technical Defenses & Controls</div>
+            <ul>
+                <li>Performance review of existing security controls (firewalls, IDS/IPS, etc.).</li>
+                <li>Analysis of control evasion techniques used by attackers.</li>
+                <li>Assessment of logging and monitoring capabilities.</li>
+                <li>Recommendations for strengthening technical defenses and implementing new controls.</li>
+            </ul>
+            <div class="section-heading">Strategic & Operational Improvements</div>
+            <ul>
+                <li>Identification of gaps in security policies and procedures.</li>
+                <li>Assessment of third-party risk management.</li>
+                <li>Evaluation of business continuity and disaster recovery plans.</li>
+                <li>Recommendations for enhancing overall security posture and resilience.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="future-recommendations">
+        <h1>Future Recommendations</h1>
+        <div class="section-content">
+            <div class="section-heading">Proactive Security Measures</div>
+            <ul>
+                <li>
+                    <div class="item-title">Implement Enhanced Intrusion Detection Systems (IDS)</div>
+                    <p>Deploy advanced IDS with behavioral analysis capabilities to identify and respond to anomalous network activity in real-time. Configure alerts for suspicious patterns identified in the attack data.</p>
+                </li>
+                <li>
+                    <div class="item-title">Strengthen Authentication Protocols</div>
+                    <p>Enforce multi-factor authentication (MFA) across all user accounts and privileged access. Regularly review and update authentication protocols to incorporate the latest security standards (e.g., passwordless authentication, biometric verification).</p>
+                </li>
+                <li>
+                    <div class="item-title">Regular Security Audits and Penetration Testing</div>
+                    <p>Conduct frequent vulnerability assessments, penetration testing, and red team exercises to proactively identify and remediate weaknesses in the platform's infrastructure and security posture.</p>
+                </li>
+                <li>
+                    <div class="item-title">Automated Threat Intelligence Integration</div>
+                    <p>Integrate threat intelligence feeds to proactively identify and block known malicious actors, IP addresses, and attack vectors. Automate the process of updating security rules and configurations based on real-time threat data.</p>
+                </li>
+            </ul>
+            <div class="section-heading">Incident Response Improvements</div>
+            <ul>
+                <li>
+                    <div class="item-title">Refine Incident Response Plan (IRP)</div>
+                    <p>Update the IRP based on lessons learned from this incident. Include specific procedures for handling various attack scenarios, communication protocols, and stakeholder roles and responsibilities.</p>
+                </li>
+                <li>
+                    <div class="item-title">Enhance Log Management and Analysis</div>
+                    <p>Centralize and analyze logs from all platform components to improve threat detection and incident investigation. Implement advanced log analysis techniques, including user behavior analytics (UBA) and security information and event management (SIEM) systems.</p>
+                </li>
+                <li>
+                    <div class="item-title">Develop a Comprehensive Disaster Recovery Plan (DRP)</div>
+                    <p>Create a detailed DRP that outlines procedures for restoring platform functionality and data in the event of a major outage or disaster. Include backup and recovery strategies, failover mechanisms, and communication plans.</p>
+                </li>
+                <li>
+                    <div class="item-title">Regular Incident Response Drills</div>
+                    <p>Conduct regular tabletop exercises and simulation drills to test the effectiveness of the IRP and DRP. Provide training to incident response teams on the latest attack techniques and response procedures.</p>
+                </li>
+            </ul>
+            <div class="section-heading">Platform Hardening and Architecture</div>
+            <ul>
+                <li>
+                    <div class="item-title">Implement Zero Trust Architecture</div>
+                    <p>Adopt a zero-trust security model that assumes no implicit trust and requires continuous verification of all users and devices. Implement micro-segmentation to limit the impact of potential breaches.</p>
+                </li>
+                <li>
+                    <div class="item-title">Code Security Best Practices</div>
+                    <p>Enforce secure coding practices throughout the software development lifecycle. Conduct regular code reviews, static analysis, and dynamic analysis to identify and remediate vulnerabilities.</p>
+                </li>
+                <li>
+                    <div class="item-title">Network Segmentation</div>
+                    <p>Segment the platform's network to isolate critical systems and data. Implement strict access controls to limit lateral movement within the network in case of a breach.</p>
+                </li>
+                <li>
+                    <div class="item-title">Regular Software and Hardware Updates</div>
+                    <p>Establish a robust patching and update management process to ensure all software and hardware components are up-to-date with the latest security patches and firmware.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="appendix">
+        <h1>Appendix</h1>
+        <div class="section-content">
+            <div class="section-title">Glossary of Terms</div>
+            <ul>
+                <li>
+                    <div class="item-title">Indicator of Compromise (IOC)</div>
+                    <p>A piece of forensic evidence, such as an IP address or file hash, that suggests a system has been breached.</p>
+                </li>
+                <li>
+                    <div class="item-title">Phishing</div>
+                    <p>The fraudulent practice of sending emails purporting to be from reputable companies in order to induce individuals to reveal personal information, such as passwords and credit card numbers.</p>
+                </li>
+                <li>
+                    <div class="item-title">Denial-of-Service (DoS)</div>
+                    <p>An attack meant to shut down a machine or network, making it inaccessible to its intended users.</p>
+                </li>
+                <li>
+                    <div class="item-title">Distributed Denial-of-Service (DDoS)</div>
+                    <p>A DoS attack utilizing multiple compromised computer systems as sources of attack traffic.</p>
+                </li>
+                <li>
+                    <div class="item-title">Malware</div>
+                    <p>Software that is intended to damage or disable computers and computer systems.</p>
+                </li>
+                <li>
+                    <div class="item-title">Exploit</div>
+                    <p>A piece of software, a chunk of data, or a sequence of commands that takes advantage of a bug or vulnerability to cause unintended behavior on computer software, hardware, or something electronic.</p>
+                </li>
+            </ul>
+            <div class="section-title">Timeline of Events</div>
+            <p>A detailed, chronological account of the attack, including timestamps and key actions.</p>
+            <p>File: <a href="timeline.pdf">timeline.pdf</a></p>
+            <div class="section-title">Technical Artifacts</div>
+            <p>Raw data, including log files, network captures, and malware samples (SHA256 hashes provided).</p>
+            <ul>
+                <li>File: <a href="network_capture_1.pcap">network_capture_1.pcap</a> - SHA256 Hash: [Redacted]</li>
+                <li>File: <a href="malware_sample_1.exe">malware_sample_1.exe</a> - SHA256 Hash: [Redacted]</li>
+                <li>File: <a href="access_log_07152024.txt">access_log_07152024.txt</a> - SHA256 Hash: [Redacted]</li>
+            </ul>
+            <div class="section-title">Contact Information</div>
+            <p>Contact details for the incident response team and relevant stakeholders.</p>
+            <ul>
+                <li><b>Incident Lead:</b> [Redacted]</li>
+                <li><b>Security Analyst:</b> [Redacted]</li>
+            </ul>
+            <div class="section-title">Recommendations for Future Prevention</div>
+            <p>A summary of the recommendations derived from the analysis, including actionable steps and best practices.</p>
+            <p>File: <a href="recommendations.pdf">recommendations.pdf</a></p>
+        </div>
+    </section>
+
+    <section id="references">
+        <h1>References</h1>
+        <ul>
+            <li>
+                <div class="item-title">Incident Report: [Social Media Platform Name] Cyberattack</div>
+                <p>Internal document detailing initial attack analysis, dated [Date of Report]. Restricted Access.</p>
+            </li>
+            <li>
+                <div class="item-title">Network Traffic Analysis - [Attack Type]</div>
+                <p>Detailed analysis of network packets related to the [Attack Type] component of the attack.  See <a href="#">[Link to Document/Repository]</a>.</p>
+            </li>
+            <li>
+                <div class="item-title">Malware Reverse Engineering Report</div>
+                <p>Report on the analysis of malicious code used in the attack.  Includes code snippets and behavior analysis. Available at <a href="#">[Link to Document/Repository]</a>.</p>
+            </li>
+            <li>
+                <div class="item-title">Vulnerability Assessment - [Platform Component]</div>
+                <p>Assessment of vulnerabilities exploited in the [Platform Component] module.  See <a href="#">[Link to Document/Repository]</a>.</p>
+            </li>
+            <li>
+                <div class="item-title">Security Log Analysis - [Date Range]</div>
+                <p>Raw security logs extracted from platform infrastructure during the attack. Available upon request.  Contact: [Contact Information].</p>
+            </li>
+            <li>
+                <div class="item-title">NIST Cybersecurity Framework</div>
+                <p>Framework used for categorizing attack vectors and mitigation strategies.  See: <a href="#">[Link to NIST Framework]</a>.</p>
+            </li>
+            <li>
+                <div class="item-title">MITRE ATT&CK Framework</div>
+                <p>Provides a comprehensive knowledge base of adversary tactics and techniques based on real-world observations. See: <a href="#">[Link to MITRE ATT&CK Framework]</a>.</p>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>

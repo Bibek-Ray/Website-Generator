@@ -19,6 +19,7 @@ app.add_middleware(
 )
 
 # Serve static files (CSS, JS, etc.) from the "frontend" folder
+app.mount("/public", StaticFiles(directory="frontend/public"), name="public")
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 # Serve the main index.html at the root
