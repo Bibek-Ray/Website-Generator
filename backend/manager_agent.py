@@ -40,8 +40,9 @@ class ManagerAgent:
         """
         system_prompt = (
             "You are a Manager Agent. Your job is to analyze the user's prompt and extract key details. "
-            "Provide a JSON object with keys: user_theme, user_purpose, and user_sections. "
-            "The user_theme should be either 'dark' or 'light'. "
+            "Provide a JSON object with the following keys: website_type, user_theme, user_purpose, and user_sections. "
+            "The website_type should reflect the kind of website the user wants (e.g., 'landing', 'blog', 'ecommerce', 'portfolio', etc.). "
+            "The user_theme should be depend on the user's prompt and if not provided select what you think suits the user_purpose. "
             "The user_purpose is a brief description of the website's goal. "
             "The user_sections is a list of essential website sections."
         )
@@ -58,16 +59,18 @@ class ManagerAgent:
         
         try:
             data = json.loads(json_str)
+            website_type = data.get("website_type", "landing")
             user_theme = data.get("user_theme", "light")
             user_purpose = data.get("user_purpose", "Generic Website")
             user_sections = data.get("user_sections", [])
         except Exception as e:
             print("Error parsing analysis output:", e)
             user_theme = "light"
+            website_type = "landing"
             user_purpose = "Generic Website"
             user_sections = []
         
-        return user_theme, user_purpose, user_sections
+        return website_type, user_theme, user_purpose, user_sections
 
     def generate_site(self, user_prompt: str):
         """
@@ -81,11 +84,11 @@ class ManagerAgent:
         Returns the final HTML and CSS.
         """
         # Step 1: Analyze prompt
-        user_theme, user_purpose, user_sections = self.analyze_prompt(user_prompt)
-        print(f"Extracted Details - Theme: {user_theme}, Purpose: {user_purpose}, Sections: {user_sections}")
+        website_type, user_theme, user_purpose, user_sections = self.analyze_prompt(user_prompt)
+        print(f"Extracted Details - Website Type: {website_type}, Theme: {user_theme}, Purpose: {user_purpose}, Sections: {user_sections}")
 
         # Step 2: Get website layout
-        section_layout = self.layout_agent.decide_layout(user_purpose, user_sections)
+        section_layout = self.layout_agent.decide_layout(user_purpose, user_sections, website_type)
         print(f"Section Layout: {section_layout}")
 
         # Step 3: Get styling information
@@ -93,11 +96,11 @@ class ManagerAgent:
         print(f"Style Information: {style_info}")
 
         # Step 4: Generate copy for each section
-        copy_info = self.copywriting_agent.generate_copy(user_purpose, section_layout)
+        copy_info = self.copywriting_agent.generate_copy(user_purpose, section_layout, website_type)
         print(f"Copy Information: {copy_info}")
 
         # Step 5: Assemble HTML and CSS
-        beta_html, beta_css = self.assembler_agent.assemble_code(section_layout, style_info, copy_info)
+        beta_html, beta_css = self.assembler_agent.assemble_code(section_layout, style_info, copy_info, website_type)
         print("Assembled code generated.")
 
         # Step 6: Clean and finalize the code
@@ -107,6 +110,7 @@ class ManagerAgent:
         # Save the outputs in the conversation state for potential future revisions
         self.conversation_state = {
             "user_theme": user_theme,
+            "website_type": website_type,
             "user_purpose": user_purpose,
             "user_sections": user_sections,
             "section_layout": section_layout,

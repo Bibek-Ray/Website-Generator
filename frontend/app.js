@@ -19,6 +19,21 @@ const codeBlocks = document.querySelectorAll(".code-block");
 const createTagBtn = document.getElementById("createTag");
 const reviseTagBtn = document.getElementById("reviseTag");
 
+function showLoading() {
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    if (loadingOverlay) {
+      loadingOverlay.classList.add("active");
+    }
+  }
+  
+  function hideLoading() {
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    if (loadingOverlay) {
+      loadingOverlay.classList.remove("active");
+    }
+  }
+  
+
 // Fake in-memory storage for versions/code (for demonstration):
 let versions = [
     // Example:
@@ -84,6 +99,10 @@ chatSendBtn.addEventListener("click", async () => {
     addChatMessage(rawMessage, "user");
     chatInput.value = "";
 
+    showLoading();
+
+    await new Promise(resolve => setTimeout(resolve, 20));
+
     try {
         let endpoint = "";
         let payload = {};
@@ -124,6 +143,8 @@ chatSendBtn.addEventListener("click", async () => {
         }
     } catch (err) {
         addChatMessage(`Error: ${err.message}`, "system");
+    } finally {
+        hideLoading();
     }
 });
 

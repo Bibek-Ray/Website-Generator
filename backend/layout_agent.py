@@ -20,7 +20,8 @@ class LayoutAgent:
 You are a web design expert. 
 Your task is to suggest sections for a website, given a particular purpose.
 
-Always respond with a comma-separated list of section names (e.g., "Hero, Features, Contact"). 
+Always respond with a comma-separated list of section names but be strict to user selected sections. 
+If user hasn't mentioned any sections select custom sections by your choice. 
 If the user already has some sections in mind, incorporate them in a logical order, 
 and add any key sections they missed.
 """
@@ -30,6 +31,8 @@ and add any key sections they missed.
         # - If no sections are provided, we request a complete set from scratch.
         human_prompt = """\
 Client needs a website for: {{ purpose }}.
+
+Website type should be: {{ website_type }}
 
 {% if sections %}
 They requested these sections: {{ sections }}
@@ -56,7 +59,7 @@ Respond ONLY with comma-separated section names (no extra text).
         # or if you have a pipeline that is prompt → LLM, you can do something like:
         self.chain = self.prompt | self.llm
 
-    def decide_layout(self, user_purpose: str, user_sections: list) -> list:
+    def decide_layout(self, user_purpose: str, user_sections: list, website_type: str) -> list:
         """
         1) Fills the Jinja2 template with `purpose` and `sections`.
         2) Calls the LLM, which returns a comma-separated string of sections.
@@ -69,7 +72,8 @@ Respond ONLY with comma-separated section names (no extra text).
         # "invoke" the chain with the variables needed for the template.
         response = self.chain.invoke({
             "purpose": user_purpose,
-            "sections": sections_str
+            "sections": sections_str,
+            "website_type": website_type
         }).content  # .content is the final text from the LLM
 
         # Now, we parse the LLM's output. It's comma-separated, 

@@ -1,4 +1,3 @@
-# backend/copywriting_agent.py
 import json
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -16,6 +15,7 @@ class CopywritingAgent:
                 "human",
                 (
                     "Website purpose: {purpose}\n"
+                    "Website style: {website_type}\n"
                     "Section to write: {section}\n"
                     "Write content as JSON with appropriate keys. For example, for the Features section, "
                     "you might respond with:\n"
@@ -39,13 +39,14 @@ class CopywritingAgent:
             )
         ])
 
-    def generate_copy(self, user_purpose, section_layout):
+    def generate_copy(self, user_purpose, section_layout, website_type):
         copy_data = {}
         for section in section_layout:
             chain = self.prompt | self.llm
             response = chain.invoke({
                 "purpose": user_purpose,
-                "section": section
+                "section": section,
+                "website_type": website_type
             }).content
             try:
                 # If the LLM wraps the JSON in markdown, extract the JSON block.
