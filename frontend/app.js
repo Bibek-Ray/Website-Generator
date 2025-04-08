@@ -33,6 +33,26 @@ function showLoading() {
     }
   }
   
+// Add to your app.js
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.target;
+      const codeBlock = document.getElementById(targetId);
+      const textToCopy = codeBlock.textContent;
+  
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text:', err);
+      }
+    });
+  });
 
 // Fake in-memory storage for versions/code (for demonstration):
 let versions = [

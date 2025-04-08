@@ -337,6 +337,33 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* Add to your CSS */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-block-wrapper:hover .copy-btn {
+  opacity: 1;
+}
+
+.copy-btn.copied {
+  background: var(--success);
+}
+
 .code-block {
   display: none;
   flex: 1;
