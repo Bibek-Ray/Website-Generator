@@ -17,32 +17,32 @@ class LayoutAgent:
 
         # The system prompt: sets the role/context of the LLM
         system_prompt = """\
-You are a web design expert. 
-Your task is to suggest sections for a website, given a particular purpose.
+                        You are a web design expert.
+                        Your task is to suggest sections for a website, given a particular purpose.
 
-Always respond with a comma-separated list of section names but be strict to user selected sections. 
-If user hasn't mentioned any sections select custom sections by your choice. 
-If the user already has some sections in mind, incorporate them in a logical order, 
-and add any key sections they missed.
-"""
+                        Strict Rule:
+                        - If the user provided section names, return only those — unless their request clearly asks for more.
+                        - If no sections are provided, then generate a sensible layout based on the website type and purpose.
+
+                        Always respond with a comma-separated list of section names (no extra text).
+                        """
+
 
         # The human prompt in Jinja2 format:
         # - If user provided sections, we mention them.
         # - If no sections are provided, we request a complete set from scratch.
         human_prompt = """\
-Client needs a website for: {{ purpose }}.
+                        Client needs a website for: {{ purpose }}.
+                        Website type should be: {{ website_type }}
+                        
+                        {% if sections %}
+                        Use ONLY these sections unless the user explicitly asks for more:
+                        {{ sections }}
+                        {% else %}
+                        Generate a complete section list appropriate for this site type.
+                        {% endif %}
+                        """
 
-Website type should be: {{ website_type }}
-
-{% if sections %}
-They requested these sections: {{ sections }}
-Suggest a logical order including these and any essential missing ones.
-{% else %}
-Propose a complete section list for this type of website.
-{% endif %}
-
-Respond ONLY with comma-separated section names (no extra text).
-"""
 
         # We combine system + human instructions into one final text,
         # then parse it as a Jinja2 template. 

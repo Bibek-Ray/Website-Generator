@@ -10,6 +10,8 @@ from backend.styling_agent import StylingAgent
 from backend.copywriting_agent import CopywritingAgent
 from backend.code_assembler_agent import CodeAssemblerAgent
 from backend.code_cleaner_agent import CodeCleanerAgent
+from backend.revision_agent import RevisionAgent
+from typing import Tuple
 
 class ManagerAgent:
     def __init__(self):
@@ -26,6 +28,7 @@ class ManagerAgent:
         self.copywriting_agent = CopywritingAgent(self.llm)
         self.assembler_agent = CodeAssemblerAgent(self.llm)
         self.cleaner_agent = CodeCleanerAgent(self.llm)
+        self.revision_agent = RevisionAgent(self.llm)
         
         # Store conversation state for iterative feedback/revisions
         self.conversation_state = {}
@@ -122,7 +125,7 @@ class ManagerAgent:
 
         return final_html, final_css
 
-    def revise_site(self, feedback: str):
+    def revise_site(self, message: str, html: str, css: str) -> Tuple[str, str]:
         """
         Revise the current website based on user feedback.
         In this example, the feedback is simply appended as an HTML comment.
@@ -133,14 +136,11 @@ class ManagerAgent:
             return None, None
 
         # Example: Append feedback as a comment in the HTML body
-        revised_html = self.conversation_state["html"].replace(
-            "</body>",
-            f"<!-- Revision Feedback: {feedback} -->\n</body>"
-        )
-        revised_css = self.conversation_state["css"]
-        # Update conversation state
+        try:
+            revised_html, revised_css = self.revision_agent.revise_code(message, html, css)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
         self.conversation_state["html"] = revised_html
         self.conversation_state["css"] = revised_css
-        print("Site revised based on feedback.")
-
         return revised_html, revised_css

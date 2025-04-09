@@ -70,28 +70,38 @@ async def conversation_endpoint(request: Request):
     """
     Expects a JSON payload:
     {
-      "message": "User's message for conversation"
+      "message": "Instructions for revising the site",
+      "html": "Current HTML",
+      "css": "Current CSS"
     }
-    This endpoint simulates iterative conversation.
-      - If the message contains 'revise', it calls revise_site() to update the current site.
-      - Otherwise, it simply echoes a default reply.
+
+    This endpoint always revises the current site using ManagerAgent.revise_site.
+    Returns updated HTML/CSS + inline_html.
     """
     data = await request.json()
     message = data.get("message")
+    html = data.get("html")
+    css = data.get("css")
+
     if not message:
         raise HTTPException(status_code=400, detail="message not provided")
-    
-    # If user requests a revision (e.g., "revise the About section"),
-    # call the revision method.
-    if "revise" in message.lower():
-        revised_html, revised_css = manager_agent.revise_site(message)
-        inline_html = combine_html_css(revised_html, revised_css)
-        reply = "Revisions applied based on your feedback."
-        return JSONResponse(content={"reply": reply, "html": revised_html, "css": revised_css})
-    
-    # Otherwise, return a default reply.
-    reply = f"Received your message: {message}"
-    return JSONResponse(content={"reply": reply})
+
+    if not html or not css:
+        raise HTTPException(status_code=400, detail="HTML and CSS required for revision.")
+
+    print("Incoming revision request:", message[:100], "...")  # Truncate long messages
+    print("HTML received:", html is not None, "| CSS received:", css is not None)
+
+    revised_html, revised_css = manager_agent.revise_site(message, html, css)
+    inline_html = combine_html_css(revised_html, revised_css)
+    reply = "Revisions applied based on your feedback."
+
+    return JSONResponse(content={
+        "reply": reply,
+        "html": revised_html,
+        "css": revised_css,
+        "inline_html": inline_html
+    })
 
 @app.get("/site/{site_id}")
 async def get_site(site_id: str):

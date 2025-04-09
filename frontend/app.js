@@ -8,6 +8,10 @@ const versionSelect = document.getElementById("versionSelect");
 const refreshPreviewBtn = document.getElementById("refreshPreviewBtn");
 const deviceToggleBtn = document.getElementById("deviceToggleBtn");
 const sitePreview = document.getElementById("sitePreview");
+const previewPanel = document.getElementById("previewPanel");
+
+// New toggle button for preview panel
+const togglePreviewBtn = document.getElementById("togglePreviewBtn");
 
 // Code panel stuff
 const toggleCodeBtn = document.getElementById("toggleCodeBtn");
@@ -23,49 +27,57 @@ const examplesBtn = document.getElementById('examplesBtn');
 const examplesPanel = document.getElementById('examplesPanel');
 const closeExamplesBtn = document.getElementById('closeExamplesBtn');
 
+// Layout container
+const layoutContainer = document.getElementById('layoutContainer');
+
 examplesBtn.addEventListener('click', () => {
-  examplesPanel.classList.add('active');
+    examplesPanel.classList.add('active');
 });
 
 closeExamplesBtn.addEventListener('click', () => {
-  examplesPanel.classList.remove('active');
+    examplesPanel.classList.remove('active');
 });
 
+// Toggle Preview Panel
+togglePreviewBtn.addEventListener('click', () => {
+    previewPanel.classList.toggle('collapsed');
+    layoutContainer.classList.toggle('preview-collapsed');
+});
 
 function showLoading() {
     const loadingOverlay = document.getElementById("loadingOverlay");
     if (loadingOverlay) {
-      loadingOverlay.classList.add("active");
+        loadingOverlay.classList.add("active");
     }
-  }
-  
-  function hideLoading() {
+}
+
+function hideLoading() {
     const loadingOverlay = document.getElementById("loadingOverlay");
     if (loadingOverlay) {
-      loadingOverlay.classList.remove("active");
+        loadingOverlay.classList.remove("active");
     }
-  }
-  
+}
+
 // Add to your app.js
 document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      const targetId = btn.dataset.target;
-      const codeBlock = document.getElementById(targetId);
-      const textToCopy = codeBlock.textContent;
-  
-      try {
-        await navigator.clipboard.writeText(textToCopy);
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = 'Copy';
-          btn.classList.remove('copied');
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy text:', err);
-      }
+        const targetId = btn.dataset.target;
+        const codeBlock = document.getElementById(targetId);
+        const textToCopy = codeBlock.textContent;
+
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy text:', err);
+        }
     });
-  });
+});
 
 // Fake in-memory storage for versions/code (for demonstration):
 let versions = [
@@ -73,7 +85,7 @@ let versions = [
     // { id: 1, html: "<!DOCTYPE html>...", css: "body { ... }", js: "console.log('Hello');" },
 ];
 
-// Track “active” version
+// Track "active" version
 let currentVersionId = null;
 
 // ---------------
@@ -145,7 +157,18 @@ chatSendBtn.addEventListener("click", async () => {
             payload = { user_prompt: content };
         } else if (tag === "/revise") {
             endpoint = "/conversation";
-            payload = { message: content };
+            const selectedVersion = versions.find(v => v.id === currentVersionId);
+            if (!selectedVersion) {
+                addChatMessage("Error: No version selected to revise.", "system");
+                hideLoading();
+                return;
+            }
+
+            payload = {
+                message: content,
+                html: selectedVersion.html,
+                css: selectedVersion.css
+            };
         }
 
         const response = await fetch(endpoint, {

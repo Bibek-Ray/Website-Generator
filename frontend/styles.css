@@ -57,7 +57,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 2rem;
+  padding: 0 1.5rem;
   background-color: var(--surface);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   position: sticky;
@@ -82,8 +82,8 @@ body {
 }
 
 .logo-icon {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   background: url("/public/better_logo.png") no-repeat center / contain;
   margin-right: 0.75rem;
   transition: transform 0.3s ease;
@@ -115,12 +115,18 @@ body {
 .layout-container {
   flex: 1;
   display: grid;
-  grid-template-columns: 320px 1fr 340px;
+  grid-template-columns: 320px 320px 1.2fr;
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding: 0.9rem;
   max-width: 1920px;
   margin: 0 auto;
   width: 100%;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* Preview collapsed state - adjust to 50-50 layout */
+.layout-container.preview-collapsed {
+  grid-template-columns: 1fr 1fr;
 }
 
 /* Sidebar Left - Chat Panel */
@@ -262,11 +268,39 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
-  transition: box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed) ease;
+  grid-column: 3;
 }
 
 .preview-panel:hover {
   box-shadow: var(--box-shadow-hover);
+}
+
+/* Preview panel collapsed state */
+.preview-panel.collapsed {
+  grid-column: unset;
+  position: fixed;
+  transform: translateX(100%);
+  right: 0;
+  top: 70px;
+  bottom: 40px;
+  width: 350px;
+  z-index: 998;
+}
+
+#togglePreviewBtn {
+  transition: all var(--transition-speed);
+}
+
+.preview-panel.collapsed #togglePreviewBtn {
+  position: fixed;
+  right: calc(100% + 20px);
+  top: -10px;
+  transform: rotate(180deg);
+  background: var(--primary);
+  color: white;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .preview-controls {
@@ -330,6 +364,10 @@ body {
   background-color: var(--primary);
   color: white;
   transform: translateY(-2px);
+}
+
+#togglePreviewBtn {
+  transition: transform var(--transition-speed);
 }
 
 .preview-frame-wrapper {
@@ -554,10 +592,9 @@ body {
 /* Enhanced Footer */
 .footer {
   background-color: var(--surface);
-  padding: 1.25rem;
+  padding: 0.5rem;
   text-align: center;
   box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.03);
-  margin-top: 1rem;
 }
 
 .footer p {

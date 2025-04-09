@@ -38,7 +38,7 @@
     </div>
   </nav>
 
-  <div class="layout-container">
+  <div class="layout-container" id="layoutContainer">
     <!-- Left Panel: Chat & Steps -->
     <aside class="sidebar-left" id="chatPanel">
       <h2>Conversation</h2>
@@ -60,50 +60,10 @@
               
     </aside>
 
-    <!-- Center Panel: Preview -->
-    <main class="preview-panel" id="previewPanel">
-      <div class="preview-controls">
-        <h2>Live Preview</h2>
-        <div class="control-group">
-          <label for="versionSelect">Version:</label>
-          <select id="versionSelect">
-            <!-- Options for previous versions -->
-          </select>
-          <button 
-            id="refreshPreviewBtn" 
-            class="icon-btn" 
-            title="Refresh Preview"
-          >
-            ↻
-          </button>
-          <button 
-            id="deviceToggleBtn" 
-            class="icon-btn" 
-            title="Toggle Device View"
-          >
-            📱
-          </button>
-        </div>
-      </div>
-      <div class="preview-frame-wrapper">
-        <iframe id="sitePreview" title="Website Preview"></iframe>
-        <!-- Loading Overlay -->
-        <div id="loadingOverlay" class="loading-overlay">
-          <div class="loading-content">
-            <div class="spinner"></div>
-            <span>Generating website...</span>
-          </div>
-        </div>
-      </div>      
-    </main>
-
     <!-- Right Panel: Code & Revisions -->
     <aside class="sidebar-right" id="codePanel">
       <div class="panel-header">
         <h2>Generated Code</h2>
-        <button id="toggleCodeBtn" class="icon-btn" title="Expand/Collapse">
-          ▼
-        </button>
       </div>
       <div class="tab-controls">
         <button 
@@ -139,13 +99,50 @@
           <button class="copy-btn" data-target="jsCode">Copy</button>
         </div>
       </div>
-      <div class="revisions-section">
-        <h3>Revisions</h3>
-        <ul id="revisionList">
-          <!-- Revision history items -->
-        </ul>
-      </div>
     </aside>
+
+    <main class="preview-panel" id="previewPanel">
+      <div class="preview-controls">
+        <h2>Live Preview</h2>
+        <div class="control-group">
+          <label for="versionSelect">Version:</label>
+          <select id="versionSelect">
+            <!-- Options for previous versions -->
+          </select>
+          <button 
+            id="refreshPreviewBtn" 
+            class="icon-btn" 
+            title="Refresh Preview"
+          >
+            ↻
+          </button>
+          <button 
+            id="deviceToggleBtn" 
+            class="icon-btn" 
+            title="Toggle Device View"
+          >
+            📱
+          </button>
+          <button 
+            id="togglePreviewBtn" 
+            class="icon-btn" 
+            title="Toggle Preview Panel"
+          >
+            ◀
+          </button>
+        </div>
+      </div>
+      <div class="preview-frame-wrapper">
+        <iframe id="sitePreview" title="Website Preview"></iframe>
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+          <div class="loading-content">
+            <div class="spinner"></div>
+            <span>Generating website...</span>
+          </div>
+        </div>
+      </div>      
+    </main>
   </div>
 
   <!-- Footer -->
