@@ -100,7 +100,7 @@ body {
   color: var(--text-secondary);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.05rem;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: all var(--transition-speed);
