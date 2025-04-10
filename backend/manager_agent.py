@@ -45,7 +45,7 @@ class ManagerAgent:
             "You are a Manager Agent. Your job is to analyze the user's prompt and extract key details. "
             "Provide a JSON object with the following keys: website_type, user_theme, user_purpose, and user_sections. "
             "The website_type should reflect the kind of website the user wants (e.g., 'landing', 'blog', 'ecommerce', 'portfolio', etc.). "
-            "The user_theme should be depend on the user's prompt and if not provided select what you think suits the user_purpose. "
+            "The user_theme is color combinations and overall styling that should be extracted from user's prompt and if not provided select what you think suits the user_purpose. user_theme should be strictly color related only. "
             "The user_purpose is a brief description of the website's goal. "
             "The user_sections is a list of essential website sections."
         )
