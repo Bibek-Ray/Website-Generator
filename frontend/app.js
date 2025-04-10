@@ -38,11 +38,115 @@ closeExamplesBtn.addEventListener('click', () => {
     examplesPanel.classList.remove('active');
 });
 
-// Toggle Preview Panel
 togglePreviewBtn.addEventListener('click', () => {
-    previewPanel.classList.toggle('collapsed');
-    layoutContainer.classList.toggle('preview-collapsed');
-});
+    previewPanel.classList.toggle('open');
+    
+    // If we're opening the panel, make sure to update preview if needed
+    if (previewPanel.classList.contains('open') && currentVersionId) {
+      loadVersionIntoPreview(currentVersionId);
+    }
+  });
+
+  function startLoadingSequence() {
+    // Create placeholder loading animation in the left sidebar (chat panel)
+    const chatLoadingSteps = [
+      "Understanding your prompt...",
+      "Extracting important details...",
+      "Designating task to agents...",
+      "Generating website...",
+      "Adding some final polish..."
+    ];
+    
+    const loadingMessageElement = document.createElement("div");
+    loadingMessageElement.classList.add("chat-message", "loading-message", "system");
+    loadingMessageElement.id = "loadingMessage";
+    chatMessages.appendChild(loadingMessageElement);
+    
+    // Start the loading animation in the chat panel
+    let currentStep = 0;
+    const chatLoadingInterval = setInterval(() => {
+      if (currentStep < chatLoadingSteps.length) {
+        loadingMessageElement.textContent = chatLoadingSteps[currentStep];
+        loadingMessageElement.classList.add("typing");
+        currentStep++;
+      } else {
+        clearInterval(chatLoadingInterval);
+        // Keep the last message until we're ready to swap it
+      }
+    }, 4500); // Change message every 1.5 seconds
+
+    const codePanelLoading = document.createElement("div");
+  codePanelLoading.classList.add("code-loading-animation");
+  codePanelLoading.innerHTML = `
+    <div class="code-loading-cont">
+      <div class="code-loading-spinner"></div>
+      <p>Generating code...</p>
+    </div>`;
+  
+  // Find active code block to add the loading animation
+  const activeCodeBlock = document.querySelector(".code-block.active");
+  if (activeCodeBlock) {
+    activeCodeBlock.appendChild(codePanelLoading);
+  }
+  
+  // Return references so we can stop/clear these animations later
+  return {
+    chatLoadingInterval,
+    loadingMessageElement,
+    codePanelLoading
+  };
+}
+
+function stopLoadingSequence(loadingElements, successMessage = "Site created successfully.") {
+    const { chatLoadingInterval, loadingMessageElement, codePanelLoading } = loadingElements;
+    
+    // Clear the interval if it's still running
+    if (chatLoadingInterval) {
+      clearInterval(chatLoadingInterval);
+    }
+    
+    // Fade out the loading message and replace with success message
+    if (loadingMessageElement) {
+      loadingMessageElement.classList.add("fade-out");
+      
+      setTimeout(() => {
+        // Remove the old loading message
+        loadingMessageElement.remove();
+        
+        // Add the success message with fade-in effect
+        const successMessageElement = document.createElement("div");
+        successMessageElement.classList.add("chat-message", "system", "success-message", "fade-in");
+        successMessageElement.textContent = successMessage;
+        chatMessages.appendChild(successMessageElement);
+        
+        // Auto-scroll the chat box
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 500);
+    }
+    
+    // Remove the code loading animation
+    if (codePanelLoading) {
+      codePanelLoading.classList.add("fade-out");
+      setTimeout(() => {
+        codePanelLoading.remove();
+      }, 500);
+    }
+  }
+
+  function handleNewVersion(newVersion) {
+    versions.push(newVersion);
+    const option = document.createElement("option");
+    option.value = newVersion.id;
+    option.textContent = `Version ${newVersion.id}`;
+    versionSelect.appendChild(option);
+  
+    versionSelect.value = newVersion.id;
+    loadVersionIntoPreview(newVersion.id);
+    
+    // Automatically open the preview panel when new content is generated
+    previewPanel.classList.add('open');
+  }
+  
 
 function showLoading() {
     const loadingOverlay = document.getElementById("loadingOverlay");
@@ -146,6 +250,8 @@ chatSendBtn.addEventListener("click", async () => {
 
     showLoading();
 
+    const loadingElements = startLoadingSequence();
+
     await new Promise(resolve => setTimeout(resolve, 20));
 
     try {
@@ -159,8 +265,8 @@ chatSendBtn.addEventListener("click", async () => {
             endpoint = "/conversation";
             const selectedVersion = versions.find(v => v.id === currentVersionId);
             if (!selectedVersion) {
-                addChatMessage("Error: No version selected to revise.", "system");
                 hideLoading();
+                stopLoadingSequence(loadingElements, "Error: No version selected to revise.");
                 return;
             }
 
@@ -186,19 +292,19 @@ chatSendBtn.addEventListener("click", async () => {
         // For /create, we expect { html, css }
         // For /revise, we expect { reply, html, css } if a revision is applied.
         if (tag === "/create") {
-            addChatMessage("Site created successfully.", "system");
             // Create a new version and update the preview.
+            stopLoadingSequence(loadingElements, "Site created successfully.");
             const newVersion = { id: Date.now(), html: data.html, css: data.css, inline_html: data.inline_html, js: "" };
             handleNewVersion(newVersion);
         } else if (tag === "/revise") {
-            addChatMessage(data.reply, "system");
+            stopLoadingSequence(loadingElements, data.reply);
             if (data.html && data.css) {
                 const newVersion = { id: Date.now(), html: data.html, css: data.css, inline_html: data.inline_html, js: "" };
                 handleNewVersion(newVersion);
             }
         }
     } catch (err) {
-        addChatMessage(`Error: ${err.message}`, "system");
+        stopLoadingSequence(loadingElements, `Error: ${err.message}`);
     } finally {
         hideLoading();
     }
@@ -256,6 +362,12 @@ function loadVersionIntoPreview(versionId) {
     document.getElementById("htmlCode").textContent = selectedVersion.html;
     document.getElementById("cssCode").textContent = selectedVersion.css || "/* No CSS provided */";
     document.getElementById("jsCode").textContent = selectedVersion.js || "// No JS provided";
+
+    const previewPlaceholder = document.querySelector('.preview-placeholder');
+    if (previewPlaceholder) {
+        previewPlaceholder.style.display = 'none';
+    }
+
 }
 
 
@@ -308,7 +420,16 @@ function handleNewVersion(newVersion) {
     option.value = newVersion.id;
     option.textContent = `Version ${newVersion.id}`;
     versionSelect.appendChild(option);
-
+  
     versionSelect.value = newVersion.id;
     loadVersionIntoPreview(newVersion.id);
+    
+    // Automatically open the preview panel when new content is generated
+    previewPanel.classList.add('open');
+    
+    // Hide placeholder explicitly
+    const previewPlaceholder = document.querySelector('.preview-placeholder');
+    if (previewPlaceholder) {
+        previewPlaceholder.style.display = 'none';
+    }
 }

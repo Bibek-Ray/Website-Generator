@@ -21,7 +21,6 @@
   <nav class="navbar">
     <div class="navbar-left">
       <div class="logo">
-        <span class="logo-icon"></span>
         <span class="logo-text">WebGen</span>
       </div>
     </div>
@@ -40,7 +39,7 @@
 
   <div class="layout-container" id="layoutContainer">
     <!-- Left Panel: Chat & Steps -->
-    <aside class="sidebar-left" id="chatPanel">
+    <aside class="sidebar-left grid-item" id="chatPanel">
       <h2>Conversation</h2>
       <div id="chatMessages" class="chat-messages">
         <!-- Chat messages will be appended here -->
@@ -61,7 +60,7 @@
     </aside>
 
     <!-- Right Panel: Code & Revisions -->
-    <aside class="sidebar-right" id="codePanel">
+    <aside class="sidebar-right grid-item" id="codePanel">
       <div class="panel-header">
         <h2>Generated Code</h2>
       </div>
@@ -101,49 +100,34 @@
       </div>
     </aside>
 
-    <main class="preview-panel" id="previewPanel">
-      <div class="preview-controls">
-        <h2>Live Preview</h2>
-        <div class="control-group">
-          <label for="versionSelect">Version:</label>
-          <select id="versionSelect">
-            <!-- Options for previous versions -->
-          </select>
-          <button 
-            id="refreshPreviewBtn" 
-            class="icon-btn" 
-            title="Refresh Preview"
-          >
-            ↻
-          </button>
-          <button 
-            id="deviceToggleBtn" 
-            class="icon-btn" 
-            title="Toggle Device View"
-          >
-            📱
-          </button>
-          <button 
-            id="togglePreviewBtn" 
-            class="icon-btn" 
-            title="Toggle Preview Panel"
-          >
-            ◀
-          </button>
+    
+  </div>
+  <main class="preview-panel grid-item" id="previewPanel">
+    <button id="togglePreviewBtn" class="toggle-preview-btn" title="Toggle Preview Panel"></button>
+    <div class="preview-controls">
+      <h2>Live Preview</h2>
+      <div class="control-group">
+        <label for="versionSelect">Version:</label>
+        <select id="versionSelect">
+          <!-- Options for previous versions -->
+        </select>
+        <button id="refreshPreviewBtn" class="icon-btn" title="Refresh Preview">↻</button>
+        <button id="deviceToggleBtn" class="icon-btn" title="Toggle Device View">📱</button>
+      </div>
+    </div>
+    <div class="preview-frame-wrapper">
+      <iframe id="sitePreview" title="Website Preview"></iframe>
+      <div class="preview-placeholder">
+        Your website preview will appear here
+      </div>
+      <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+          <div class="spinner"></div>
+          <span>Generating website...</span>
         </div>
       </div>
-      <div class="preview-frame-wrapper">
-        <iframe id="sitePreview" title="Website Preview"></iframe>
-        <!-- Loading Overlay -->
-        <div id="loadingOverlay" class="loading-overlay">
-          <div class="loading-content">
-            <div class="spinner"></div>
-            <span>Generating website...</span>
-          </div>
-        </div>
-      </div>      
-    </main>
-  </div>
+    </div>      
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -168,6 +152,10 @@
       <div class="example-card">
         <h4>Cybersecurity Documentation Page</h4>
         <iframe src="./public/cyber-documentation/index.html"></iframe>
+      </div>
+      <div class="example-card">
+        <h4>Sarcastic NASA Blog</h4>
+        <iframe src="./public/sarcastic-nasa-blog/index.html"></iframe>
       </div>
     </div>
   </div>
