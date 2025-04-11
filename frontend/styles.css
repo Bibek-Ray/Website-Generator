@@ -44,6 +44,9 @@
 body {
   font-family: var(--font-body);
   background: url("/public/background-img.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
